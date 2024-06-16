@@ -2,15 +2,41 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
 
-    'description','slug','name','image','status','parent_id'
+        'description',
+        'slug',
+        'name',
+        'image',
+        'status',
+        'parent_id'
     ];
+
+    public static function rules($id = 0)
+    {
+
+
+        return [
+            'name' =>
+                [
+                    'required',
+                    'max:200',
+                    'min:3',
+                    Rule::unique('categories', 'name')->ignore($id)
+                ],
+            'parent_id' => ['nullable', 'int', 'exists:categories,id'],
+            'image' => ['image', 'mimes:png,jpg,bmp', 'max:100000024', 'dimensions:min_width=100,min_height=100'],
+            'status' => 'required',
+            'in:inactive,active',
+
+        ];
+    }
 }
