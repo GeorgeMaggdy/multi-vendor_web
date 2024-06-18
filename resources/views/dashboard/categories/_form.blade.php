@@ -33,7 +33,7 @@
             <option value="{{$parent->id}}" @selected(old('parent_id', $category->parent_id) == $parent->id)>{{$parent->name}}
             </option>
             <!-- The selected directive is used for showing the current value of the category in the field
-                                                used the selected to check if the categpry id i recieved is equall to the same parent id in the field then i should select it and show it in the field-->
+                                                    used the selected to check if the categpry id i recieved is equall to the same parent id in the field then i should select it and show it in the field-->
         @endforeach
 
 
