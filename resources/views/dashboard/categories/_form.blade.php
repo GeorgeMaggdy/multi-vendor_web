@@ -13,16 +13,7 @@
 
 <div class="form-group">
     <label for="">Category Name</label>
-    <input type="text" name="name" value="{{@old('name', $category->name)}}" @class([
-    'form-control',
-    'is-invalid' => $errors->has('name')
-
-])>
-    @error('name')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-    @enderror
+    <x-form.input type="text" name="name" :value="$category->name" />
 </div>
 
 <div class="form-group">
@@ -33,7 +24,7 @@
             <option value="{{$parent->id}}" @selected(old('parent_id', $category->parent_id) == $parent->id)>{{$parent->name}}
             </option>
             <!-- The selected directive is used for showing the current value of the category in the field
-                                                    used the selected to check if the categpry id i recieved is equall to the same parent id in the field then i should select it and show it in the field-->
+                                                                    used the selected to check if the categpry id i recieved is equall to the same parent id in the field then i should select it and show it in the field-->
         @endforeach
 
 
@@ -46,11 +37,8 @@
     </div>
 
     <div class="form-group">
-        <label for="">Image</label>
-        <input type="file" name="image" @class([
-    'form-control',
-    'is-invalid' => $errors->has('image')
-])>
+        <x-form.label id="image">Image</x-form.label>
+        <x-form.input type="file" name="image" :value="$category->image" />
 
 
         @error('image')
