@@ -41,8 +41,6 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
 
-
-
         $request->validate(Category::rules());
         $request->merge([
             'slug' => Str::slug($request->post('name'))
