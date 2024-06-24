@@ -15,11 +15,6 @@ Route::group([
    Route::resource('/categories', CategoriesController::class);
 });
 
-//  Route::middleware('auth')->as('dashboard')->prefix('dashboard')->group(function(){
 
-//     Route::get('/', [DashboardController::class,'index'])
-// //     ->name('dashboard');
-// //     Route::resource('/categories',CategoriesController::class);
-
-
-//  });
+// Route::get('/dashboard',[DashboardController::class,'index'])->middleware(['auth']);
+// Route::resource('dashboard/categories',CategoriesController::class)->middleware(['auth']);
