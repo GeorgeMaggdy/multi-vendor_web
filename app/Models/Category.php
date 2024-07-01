@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Rules\filter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,5 +48,18 @@ class Category extends Model
             'in:inactive,active',
 
         ];
+    }
+
+    public function scopeFilter(Builder $builder, $filters)
+    {
+        if ($filters['name'] ?? false) {
+
+            $builder->where('categories.name', 'LIKE', "%{$filters['name']}%");
+        }
+        if ($filters['status'] ?? false) {
+
+            $builder->where('categories.status', '=', $filters['status']);
+        }
+
     }
 }

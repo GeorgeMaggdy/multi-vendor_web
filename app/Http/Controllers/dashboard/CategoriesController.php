@@ -18,17 +18,22 @@ class CategoriesController extends Controller
     public function index()
     {
         $request = request();
-        $query = Category::query();
-        $name = $request->query('name');
-        if ($name) {
-            $query->where('name', 'LIKE', "%{$name}%");
-        }
-        if ($status = $request->query('status')) {
 
-            $query->where('status', '=', $status);
-        }
+        //for retreiving the parent name value-> we need to make inner join between the table -> so we need to give both tables aliases
+        //if we made inner join there's categories has no parents so the categories won't be reterived or shown
+        //we need to make left join with the main table and give the main table alias too so we can bring all the parts from the left table
+        //when we retreive all the info we need to select the name which is the parent name
 
-        $categories = $query->paginate(3);
+        $categories = Category::leftJoin('categories as parents', 'parents.id', '=', 'categories.parent_id')
+            ->select([
+
+                'categories.*',
+                'parents.name as parent_name'
+            ])->
+
+            Filter($request->query())
+            ->orderBy('categories.name', 'asc')
+            ->paginate(3);
         return view('dashboard.categories.index', compact('categories'));
     }
 

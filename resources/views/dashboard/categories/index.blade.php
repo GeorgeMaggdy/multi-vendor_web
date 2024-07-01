@@ -16,14 +16,14 @@
 </div>
 
 
-<form  action="{{URL::current()}}" methods="get" class="d-flex justfiy-content-between mb-4">
-<x-form.input name="name" placeholder="Name" class="mx-2" :value="request('name')"/>
-<select name="status" class="form-control mx-4">
-<option value="">All</option>
-<option value="active" @selected(request('status')=='active')>Active</option>
-<option value="inactive" @selected(request('status')=='inactive')>In-active</option>
-</select>
-<button class="btn btn-dark">Filter</button>
+<form action="{{URL::current()}}" methods="get" class="d-flex justfiy-content-between mb-4">
+    <x-form.input name="name" placeholder="Name" class="mx-2" :value="request('name')" />
+    <select name="status" class="form-control mx-4">
+        <option value="">All</option>
+        <option value="active" @selected(request('status') == 'active')>Active</option>
+        <option value="inactive" @selected(request('status') == 'inactive')>In-active</option>
+    </select>
+    <button class="btn btn-dark">Filter</button>
 </form>
 <table class="table">
     <thead>
@@ -33,7 +33,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Status</th>
-            <th>Parent</th>
+            <th>Parent name</th>
             <th>Created_at</th>
             <th colspan="2"></th>
 
@@ -50,7 +50,7 @@
                     <td>{{$category->description}}</td>
                     <td>{{$category->status}}</td>
 
-                    <td>{{$category->parent_id}}</td>
+                    <td>{{$category->parent_name}}</td>
                     <td>{{$category->created_at}}</td>
                     <td>
                         <a href="{{route('dashboard.categories.edit', $category->id)}}"
