@@ -149,15 +149,43 @@ class CategoriesController extends Controller
     {
         $category = Category::findorfail($id);
         $category->delete();
-        if ($category->image) {
+        // if ($category->image) {
 
-            Storage::disk('public')->delete($category->image);
-        }
+        // Storage::disk('public')->delete($category->image);
+        // }
         return redirect()->route('dashboard.categories.index')->with('deleted', 'The category deleted successfully ');
+    }
+
+    public function Trash()
+    {
+
+        $categories = Category::onlyTrashed()->paginate();
+        return view('dashboard.categories.trashed', compact('categories'));
+
+    }
+
+    public function Restore($id)
+    {
+        $categories = Category::onlyTrashed()->findorfail($id);
+        $categories->restore();
+        return redirect()->route('dashboard.categories.trash')->with('success', 'Restored successfully!');
+    }
+
+    public function forceDelete($id)
+    {
+        $categories = Category::onlyTrashed()->findorfail($id);
+        $categories->forceDelete();
+        if ($categories->image) {
+
+            Storage::disk('public')->delete($categories->image);
+        }
+        return redirect()->route('dashboard.categories.trash')->with('deleted', 'The record has been deleted!');
+
     }
 
     protected function uploadImg(Request $request)
     {
+
 
         if (!$request->hasfile('image')) {
 
@@ -165,7 +193,7 @@ class CategoriesController extends Controller
         }
 
         $file = $request->file('image');
-        $path = $file->store('uploads', [
+        $path = $file->store('uploads/'.$request->name, [
 
             'disk' => 'public'
         ]);
