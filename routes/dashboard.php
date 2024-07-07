@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\dashboard\ProductController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\dashboard\CategoriesController;
 
@@ -18,6 +19,8 @@ Route::group([
    Route::put('/categories/{category}/restore',[CategoriesController::class,'Restore'])->name('categories.restore');
    Route::delete('/categories/{category}/force-Delete',[CategoriesController::class,'forceDelete'])->name('categories.forceDelete');
    Route::resource('/categories', CategoriesController::class);
+   Route::resource('/products', ProductController::class);
+
 });
 
 
