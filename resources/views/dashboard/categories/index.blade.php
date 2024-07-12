@@ -29,18 +29,17 @@
 </form>
 <table class="table">
     <thead>
-        <>
-            <th></th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Parent name</th>
-            <th>Created_at</th>
-            <th colspan="2"></th>
+        <th></th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Parent name</th>
+        <th>products#</th>
+        <th>Created_at</th>
+        <th colspan="5"></th>
 
 
-            </tr>
+        </tr>
     </thead>
     <tbody>
         @if($categories->count())
@@ -48,11 +47,10 @@
                 <tr>
                     <td><img src="{{asset('storage/' . $category->image)}}" alt="" height="60" width="60"></td>
                     <td>{{$category->id}}</td>
-                    <td>{{$category->name}}</td>
-                    <td>{{$category->description}}</td>
+                    <td><a href="{{ route('dashboard.categories.show', $category->id) }}">{{ $category->name }}</a> </td>
                     <td>{{$category->status}}</td>
-
-                    <td>{{$category->parent_name}}</td>
+                    <td>{{$category->parent->name}}</td>
+                    <td>{{$category->products_count}}</td>
                     <td>{{$category->created_at}}</td>
                     <td>
                         <a href="{{route('dashboard.categories.edit', $category->id)}}"
@@ -69,7 +67,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="7">no data to be shown.</td>
+                <td colspan="8">no data to be shown.</td>
             </tr>
         @endif
     </tbody>

@@ -29,13 +29,12 @@
 </form>
 <table class="table">
     <thead>
-        <>
             <th></th>
             <th>ID</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>Category_id</th>
-            <th>Store_id</th>
+            <th>Category_name</th>
+            <th>Status</th>
+            <th>Store_name</th>
             <th>Created_at</th>
             <th colspan="2"></th>
 
@@ -49,9 +48,9 @@
                     <td><img src="{{asset('storage/' . $product->image)}}" alt="" height="60" width="60"></td>
                     <td>{{$product->id}}</td>
                     <td>{{$product->name}}</td>
-                    <td>{{$product->description}}</td>
-                    <td>{{$product->category_id}}</td>
-                    <td>{{$product->store_id}}</td>
+                    <td>{{$product->Category? $product->Category->name : 'Main-Category'}}</td>
+                    <td>{{$product->status}}</td>
+                    <td>{{$product->Store->name}}</td>
                     <td>{{$product->created_at}}</td>
                     <td>
                         <a href="{{route('dashboard.products.edit', $product->id)}}"

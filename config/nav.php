@@ -19,7 +19,7 @@ return [
 
     [
         'icon' => 'fas fa-tags nav-icon',
-        'route' => 'dashboard.categories.index',
+        'route' => 'dashboard.products.index',
         'title' => 'Products',
         'active' => 'dashboard.products.*',
     ],

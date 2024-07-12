@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\ProductController;
+use App\Http\Controllers\dashboard\ProfileController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\dashboard\CategoriesController;
 
@@ -15,6 +16,9 @@ Route::group([
 
    
    Route::get('/', [DashboardController::class, 'index'])->name('dashboard'); // Route for /dashboard/index
+
+   Route::get('/profile/edit',[ProfileController::class,'edit'])->name('profile.edit');
+   Route::patch('/profile/update',[ProfileController::class,'update'])->name('profile.update');
    Route::get('/categories/trash',[CategoriesController::class,'Trash'])->name('categories.trash');
    Route::put('/categories/{category}/restore',[CategoriesController::class,'Restore'])->name('categories.restore');
    Route::delete('/categories/{category}/force-Delete',[CategoriesController::class,'forceDelete'])->name('categories.forceDelete');

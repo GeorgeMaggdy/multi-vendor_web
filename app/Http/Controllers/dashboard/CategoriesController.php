@@ -24,13 +24,25 @@ class CategoriesController extends Controller
         //we need to make left join with the main table and give the main table alias too so we can bring all the parts from the left table
         //when we retreive all the info we need to select the name which is the parent name
 
-        $categories = Category::leftJoin('categories as parents', 'parents.id', '=', 'categories.parent_id')
-            ->select([
+        $categories = Category::with('parent')
+            ->withCount(
+                [
+                    'products' => function ($query) {
 
-                'categories.*',
-                'parents.name as parent_name'
-            ])->
+                        $query->where('status', '=', 'active');
+                    }
+                ]
+            )->
 
+            // leftJoin('categories as parents', 'parents.id', '=', 'categories.parent_id')
+            //     ->select([
+
+            //         'categories.*',
+            //         'parents.name as parent_name'
+            //     ])->
+
+            // selectRaw('(SELECT COUNT(*) FROM products WHERE category_id = categories.id) as products_number')
+            // ->
             Filter($request->query())
             ->orderBy('categories.name', 'asc')
             ->paginate(3);
@@ -78,9 +90,10 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        //
+        $categories=$category;
+       return view('dashboard.categories.show',compact('categories'));
     }
 
     /**
@@ -193,7 +206,7 @@ class CategoriesController extends Controller
         }
 
         $file = $request->file('image');
-        $path = $file->store('uploads/'.$request->name, [
+        $path = $file->store('uploads/' . $request->name, [
 
             'disk' => 'public'
         ]);

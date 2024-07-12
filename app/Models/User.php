@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
- //use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable 
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -44,4 +44,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function profile()
+    {
+
+        return $this->hasOne(Profile::class, 'user_id', 'id')->withDefault();
+        /*i used with default cuz there's users that has no profile,so if i used the relation in this way without without
+        withdefault the the relation will return null and this will cause error, in this cause we should use withdefalut.
+        */ 
+    }
+
+    
 }

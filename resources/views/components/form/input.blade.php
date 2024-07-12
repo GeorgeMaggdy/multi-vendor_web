@@ -1,22 +1,17 @@
-@props ([
-
+@props([
     'type' => 'text',
     'name',
-    'value'
+    'value' => '',
+    'label' => false
 ])
 
-<!-- the props variable is only for checking the possible parameters im receiving and setting defaults for the variables -->
+@if($label)
+    <label for="">{{ $label }}</label>
+@endif
 
-
-<input type="{{$type}}" name="{{$name}}" value="{{old($name, $value)}}" @class([
+<input type="{{ $type }}" name="{{ $name }}" value="{{ old($name, $value) }}" {{ $attributes->class([
     'form-control',
     'is-invalid' => $errors->has($name)
+]) }}>
 
-]) {{$attributes}}>
-
-<!-- the attributes variable is only for printing the unsent variables/attributes -->
-@error($name)
-    <div class="invalid-feedback">
-        {{ $message }}
-    </div>
-@enderror
+<x-form.validation-feedback :name="$name" />

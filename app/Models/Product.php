@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Store;
+use App\Models\Category;
 use App\Models\Scopes\StoreScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,5 +17,16 @@ class Product extends Model
 
         static::addGlobalScope('store', new StoreScope());
 
+    }
+
+    public function Category(){
+
+        return $this->belongsTo(Category::class);
+        
+    }
+
+    public function Store(){
+
+        return $this->belongsTo(Store::class);
     }
 }
