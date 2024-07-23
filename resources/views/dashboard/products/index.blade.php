@@ -29,17 +29,17 @@
 </form>
 <table class="table">
     <thead>
-            <th></th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Category_name</th>
-            <th>Status</th>
-            <th>Store_name</th>
-            <th>Created_at</th>
-            <th colspan="2"></th>
+        <th></th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category_name</th>
+        <th>Status</th>
+        <th>Store_name</th>
+        <th>Created_at</th>
+        <th colspan="2"></th>
 
 
-            </tr>
+        </tr>
     </thead>
     <tbody>
         @if($products->count())
@@ -48,7 +48,7 @@
                     <td><img src="{{asset('storage/' . $product->image)}}" alt="" height="60" width="60"></td>
                     <td>{{$product->id}}</td>
                     <td>{{$product->name}}</td>
-                    <td>{{$product->Category? $product->Category->name : 'Main-Category'}}</td>
+                    <td>{{$product->Category ? $product->Category->name : 'Main-Category'}}</td>
                     <td>{{$product->status}}</td>
                     <td>{{$product->Store->name}}</td>
                     <td>{{$product->created_at}}</td>
@@ -57,7 +57,7 @@
                             class="btn btn-sm btn-outline-primary">Edit</a>
                     </td>
                     <td>
-                        <form action="{{route('dashboard.categories.destroy', $product->id)}}" method="post">
+                        <form action="{{route('dashboard.products.destroy', $product->id)}}" method="post">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>

@@ -12,6 +12,19 @@ class Product extends Model
 {
     use HasFactory;
 
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'image',
+        'category_id',
+        'store_id',
+        'price',
+        'compare_price',
+        'status',
+    ];
+
     static function booted()
     {
 
@@ -19,14 +32,29 @@ class Product extends Model
 
     }
 
-    public function Category(){
+    public function Category()
+    {
 
         return $this->belongsTo(Category::class);
-        
+
     }
 
-    public function Store(){
+    public function Store()
+    {
 
         return $this->belongsTo(Store::class);
+    }
+
+    public function Tags()
+    {
+
+        return $this->belongsToMany(
+            Tag::class,
+            'product_tag',
+            'product_id',
+            'tag_id',
+            'id',
+            'id'
+        );
     }
 }
