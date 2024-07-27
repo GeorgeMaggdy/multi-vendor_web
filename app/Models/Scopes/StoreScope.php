@@ -15,7 +15,7 @@ class StoreScope implements Scope
     public function apply(Builder $builder, Model $model): void
     {
         $user = Auth::user();
-        if ($user->store_id) {
+        if ($user && $user->store_id) {
             //this condtion is only for retreiving all the records incase the user is admin & it will retrieve all the records
             $builder->where('store_id', '=', $user->store_id);
         }
