@@ -4,6 +4,7 @@
                with font-awesome or any other icon font library -->
 
     @foreach($items as $item)
+
     <li class="nav-item">
       <a href="{{route($item['route'])}}" class="nav-link {{Route::is($item['active']) ? 'active' : ''}}">
       <!-- The route object tells me whether the user visited the route or not & if the user did then the array value will be filled with value and return true-->
